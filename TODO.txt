@@ -1,0 +1,5 @@
+*make ultrasonic sensor output distance in command window
+/make ultrasonic sensor tell the arduino to activate the photo resistor circut
+*make ultrasonic sensor constantly check the distance of an object
+/make photo resistor constantly check if object has crossed it once the photo resistor circut has been activated
+make ultrasonic sensor tell the arduino to deactivate the photo resistor circut if the object has gotton further away
