@@ -7,7 +7,9 @@ a = arduino('COM3','UNO',"Libraries","Ultrasonic"); % assignes the arduino to a
 ultsonObj = ultrasonic(a,'D2','D3'); %assigns the ultrasonic sensor to ultsonObj
 
 distance = readDistance(ultsonObj); %reads the ultrasonic sensor (ultsonObj) as a distance and assignes the value to distance
+
 %disp(distance)
+
 line = readVoltage(a,'A0'); % photo rsistor
 
 while 1
