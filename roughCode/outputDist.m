@@ -4,7 +4,7 @@
 clc, clear all, close all % clears all history and closes all running matlab programs
 
 a = arduino('COM3','UNO',"Libraries","Ultrasonic"); % assignes the arduino to a
-ultsonObj = ultrasonic(a,'D2','A3'); %assigns the ultrasonic sensor to ultsonObj
+ultsonObj = ultrasonic(a,'D2','D3'); %assigns the ultrasonic sensor to ultsonObj
 
 distance = readDistance(ultsonObj); %reads the ultrasonic sensor (ultsonObj) as a distance and assignes the value to distance
 line = readVoltage(a,'A0'); % photo rsistor
