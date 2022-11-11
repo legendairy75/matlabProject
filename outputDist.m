@@ -9,9 +9,9 @@ ultsonObj = ultrasonic(a,'D2','D4'); %assigns the ultrasonic sensor to ultsonObj
 %disp(distance)
 line = readVoltage(a,'A0'); % photo rsistor
 
-playTone(a,'D3',440,2);
-playTone(a,'D3',430,2);
-playTone(a,'D3',450,2);
+playTone(a,'D3',440,.5);
+pause(.5);
+playTone(a,'D3',440,.5);
 
 while 1
 
@@ -21,28 +21,40 @@ while 1
 
     if distance < .2 % 5 is just a place holder, change before exicution
 
-        %load("tripWire.m")
-
-   % writeDigitalPin(a,'D6',1); % LED for photoresister on
-
-    
+    writeDigitalPin(a,'D6',1); % LED for photoresister on
 
 % photo resistor start
-        %while 1%distance < .2
+        while 1
     
-            %line = readVoltage(a,'A0'); % photo rsistor
+            line = readVoltage(a,'A0'); % photo rsistor
     
-          %  if line<1
+            if line<.2
     
-          %      writeDigitalPin(a,'D13',1);
-         %       playTone(a,'D3',440,2);
-%
-         %   elseif distance > .2
-        %        break
-            
-       %     end
+                writeDigitalPin(a,'D13',1);
+                playTone(a,'D3',277.18,.5);
+                pause(.5);
+                playTone(a,'D3',277.18,.5);
+                pause(.5);
+                playTone(a,'D3',554.37,1);
+                pause(.5);
+                playTone(a,'D3',440.00,1);
+                pause(.8);
+                playTone(a,'D3',415.30,1);
+                pause(.5);
+                playTone(a,'D3',392.00,1);
+                pause(.5);
+                playTone(a,'D3',349.23,1);
+                pause(.2);
+                playTone(a,'D3',293.66,.5);
+                pause(.5);
+                playTone(a,'D3',349.23,.5);
+                pause(.5);
+                playTone(a,'D3',392.00,.5);
 
-      %  end
+            
+            end
+        
+        end
 %Photoresister stop
 
     else
