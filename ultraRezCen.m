@@ -3,32 +3,34 @@
 
 clc, clear all, close all % clears all history and closes all running matlab programs
 
-a = arduino('COM4','UNO',"Libraries","Ultrasonic"); % assignes the arduino to a
-ultsonObj = ultrasonic(a,'D2','D4'); %assigns the ultrasonic sensor to ultsonObj
+%%%%Defining important components/component functions in the workspace%%%%
+a = arduino('COM4','UNO',"Libraries","Ultrasonic"); % assignes the arduino to the variable "a"
+ultsonObj = ultrasonic(a,'D2','D4'); %assigns the ultrasonic sensor to ultsonObj        
+line = readVoltage(a,'A0'); % photo resistor
+%%%%------------------------------------------------------------------%%%%
 
-%disp(distance)
-line = readVoltage(a,'A0'); % photo rsistor
+playTone(a,'D3',440,.5);  %The initial speaker sound.
+pause(.5);                %ensures speaker is functional and also signals
+playTone(a,'D3',440,.5);  %activation.
 
-playTone(a,'D3',440,.5);
-pause(.5);
-playTone(a,'D3',440,.5);
+while 1 
 
-while 1
+    distance = readDistance(ultsonObj); %reads the ultrasonic sensor (ultsonObj)
+    fprintf('Object is %f away.\n',distance) %as a distance and 
+    %pause (2)                            %assignes the value to distance
 
-    distance = readDistance(ultsonObj); %reads the ultrasonic sensor (ultsonObj) as a distance and assignes the value to distance
-    fprintf('Object is %f away.\n',distance)
-    %pause (2)
+    if distance < .2 % The distance needed for the LED to turn on
+                 %and for the photoresistor to activate
 
-    if distance < .2 % 5 is just a place holder, change before exicution
+    writeDigitalPin(a,'D6',1); % LED for photoresister on.   
+                               %Also acts as the light source
 
-    writeDigitalPin(a,'D6',1); % LED for photoresister on
-
-    line = readVoltage(a,'A0'); % photo rsistor
+    line = readVoltage(a,'A0'); %command to read photoresistor voltage
     
-            if line<.2
-    
+            if line<.2  %Photo resistor Voltage needed for "alarm" to play
+                        %and for integrated LED 13 to turn on
                 writeDigitalPin(a,'D13',1);
-                playTone(a,'D3',277.18,.5);
+                playTone(a,'D3',277.18,.5);  %D3 is the speaker pin
                 pause(.2);
                 playTone(a,'D3',277.18,.5);
                 pause(.5);
@@ -51,11 +53,11 @@ while 1
 
     elseif distance > .23
 
-        writeDigitalPin(a,'D6',0);
+        writeDigitalPin(a,'D6',0);  %Turns off the photoresistor LED
            
     else
 
-    writeDigitalPin(a,'D13',0);
+    writeDigitalPin(a,'D13',0); %Turns off
 
     end
 
